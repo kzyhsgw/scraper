@@ -1,0 +1,85 @@
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAPS_API_KEY"] %>&callback=initMap"></script>
+
+<%= form_with model: @exhibitions, url: search_exhibitions_path, method: :get, local: true do |f| %>
+  <%= f.collection_select :place_1, @exhibitions, :id, :name, {prompt: "選択してください"}, {class:"genre-select"} %>
+  <%= f.hidden_field :lat_1 %>
+  <%= f.hidden_field :lng_1 %>
+  <div id='display_1'></div>
+  <br>
+  <%= f.collection_select :place_2, @exhibitions, :id, :name, {prompt: "選択してください"}, {class:"genre-select"} %>
+  <%= f.hidden_field :lat_2 %>
+  <%= f.hidden_field :lng_2 %>
+  <div id='display_2'></div>
+  <br>
+  <%= f.collection_select :place_3, @exhibitions, :id, :name, {prompt: "選択してください"}, {class:"genre-select"} %>
+  <%= f.hidden_field :lat_3 %>
+  <%= f.hidden_field :lng_3 %>
+  <div id='display_3'></div>
+  <br>
+  <%= f.submit '検索', id: "submit" %>
+<% end %>
+<br>
+
+<script>
+let geocoder
+const display_1 = document.getElementById('display_1')
+const display_2 = document.getElementById('display_2')
+const display_3 = document.getElementById('display_3')
+
+function initMap(){
+  geocoder = new google.maps.Geocoder()
+
+  function inputChange_1(){
+    let input = document.getElementById('exhibition_place_1');
+    let inputAddress = input.options[input.selectedIndex].text;
+    geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+      if (status == 'OK') {
+        display_1.textContent = "緯度: " + results[0].geometry.location.lat() + "  経度: " + results[0].geometry.location.lng()
+        document.getElementById( "exhibition_lat_1" ).value = results[0].geometry.location.lat();
+        document.getElementById( "exhibition_lng_1" ).value = results[0].geometry.location.lng();
+      } else {
+        alert('該当する結果がありませんでした：' + status);
+      }
+    });
+  }
+  let text_1 = document.getElementById('exhibition_place_1');
+  text_1.addEventListener('change', inputChange_1);
+
+  function inputChange_2(){
+    let input = document.getElementById('exhibition_place_2');
+    let inputAddress = input.options[input.selectedIndex].text;
+    geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+      if (status == 'OK') {
+        display_2.textContent = "緯度: " + results[0].geometry.location.lat() + "  経度: " + results[0].geometry.location.lng()
+        document.getElementById( "exhibition_lat_2" ).value = results[0].geometry.location.lat();
+        document.getElementById( "exhibition_lng_2" ).value = results[0].geometry.location.lng();
+      } else {
+        alert('該当する結果がありませんでした：' + status);
+      }
+    });
+  }
+  let text_2 = document.getElementById('exhibition_place_2');
+  text_2.addEventListener('change', inputChange_2);
+
+  function inputChange_3(){
+    let input = document.getElementById('exhibition_place_3');
+    let inputAddress = input.options[input.selectedIndex].text;
+    geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+      if (status == 'OK') {
+        display_3.textContent = "緯度: " + results[0].geometry.location.lat() + "  経度: " + results[0].geometry.location.lng()
+        document.getElementById( "exhibition_lat_3" ).value = results[0].geometry.location.lat();
+        document.getElementById( "exhibition_lng_3" ).value = results[0].geometry.location.lng();
+      } else {
+        alert('該当する結果がありませんでした：' + status);
+      }
+    });
+  }
+  let text_3 = document.getElementById('exhibition_place_3');
+  text_3.addEventListener('change', inputChange_3);
+}
+</script>
+
+<% @exhibitions.each_with_index do |e, i| %>
+  <%= "#{i+1}. #{e.name} 『#{e.title}』" %>
+  <br>
+<% end %>

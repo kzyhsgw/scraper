@@ -1,0 +1,35 @@
+<%= "品川 st." %>
+<div>↓ 電車 <%= "#{@rail_s1} min" %></div>
+<%= "#{@sta_1} st." %>
+<div>↓ 徒歩 <%= "#{@wal_1} min" %></div>
+<%= "#{Exhibition.find_by(id: @place_1_id).name} 『#{Exhibition.find_by(id: @place_1_id).title}』" %>
+<div>↓ 徒歩 <%= "#{@wal_1} min" %></div>
+
+<%= "#{@sta_1} st." %>
+<div>↓ 電車 <%= "#{@rail_12} min" %></div>
+<%= "#{@sta_2} st." %>
+<div>↓ 徒歩 <%= "#{@wal_2} min" %></div>
+<%= "#{Exhibition.find_by(id: @place_2_id).name} 『#{Exhibition.find_by(id: @place_2_id).title}』" %>
+<div>↓ 徒歩 <%= "#{@wal_2} min" %></div>
+
+<%= "#{@sta_2} st." %>
+<div>↓ 電車 <%= "#{@rail_23} min" %></div>
+<%= "#{@sta_3} st." %>
+<div>↓ 徒歩 <%= "#{@wal_3} min" %></div>
+<%= "#{Exhibition.find_by(id: @place_3_id).name} 『#{Exhibition.find_by(id: @place_3_id).title}』" %>
+<div>↓ 徒歩 <%= "#{@wal_3} min" %></div>
+
+<%= "#{@sta_3} st." %>
+<div>↓ 電車 <%= "#{@rail_3g} min" %></div>
+<%= "東京 st." %>
+<br>
+<br>
+<div>合計移動時間 <%= "#{@duration} min" %></div>
+<br>
+<hr>
+<ul>
+  <li>スクレイピング先「美術館・アート情報 artscape」</li>
+  <li>会場名の類推と緯度・経度「Google Maps JavaScript API」</li>
+  <li>電車の移動時間「Tokyo乗り換えAPI」</li>
+  <li>最寄り駅とそこまでの距離「HeartRails Express」</li>
+</ul>
