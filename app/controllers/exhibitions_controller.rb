@@ -1,8 +1,8 @@
 class ExhibitionsController < ApplicationController
   def index
     # Scraping.artspace
-    #@exhibitions = Exhibition.all
-    #@exhibition_name = Exhibition.select("title").distinct  # 重複なくnameカラムのデータを取り出す
+    @exhibitions = Exhibition.all
+    @exhibition_name = Exhibition.select("title").distinct  # 重複なくnameカラムのデータを取り出す
   end
 
   def search
